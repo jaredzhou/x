@@ -1,7 +1,8 @@
-/// A type-erased container that can hold values of various types.
+/// A type container that can hold values of various types.
 
 pub(all) suberror AnyDecodeError String derive(Show)
 
+/// The `Any` type can represent various data types.
 pub(all) enum Any {
   Unit
   None
