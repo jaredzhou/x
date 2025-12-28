@@ -1,0 +1,100 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "jaredzhou/x/any"
+
+import(
+  "moonbitlang/core/bigint"
+)
+
+// Values
+pub fn[T : FromAny] from_any(Any) -> T raise AnyDecodeError
+
+pub fn[T : ToAny] to_any(T) -> Any
+
+// Errors
+pub(all) suberror AnyDecodeError String
+pub impl Show for AnyDecodeError
+
+// Types and methods
+pub(all) enum Any {
+  Unit
+  None
+  Bool(Bool)
+  Byte(Byte)
+  Int(Int64)
+  Double(Double)
+  String(String)
+  Bytes(Bytes)
+  Array(Array[Any])
+  Map(Array[(Any, Any)])
+  Struct(Array[(String, Any)])
+}
+pub fn[T : FromAny] Any::array_delete(Self, Int) -> T raise AnyDecodeError
+pub fn[T : FromAny] Any::array_get(Self, Int) -> T raise AnyDecodeError
+pub fn Any::array_length(Self) -> Int raise AnyDecodeError
+pub fn[T : ToAny] Any::array_push(Self, T) -> Unit raise AnyDecodeError
+pub fn[T : ToAny] Any::array_set(Self, Int, T) -> Unit raise AnyDecodeError
+pub fn[K : Eq + FromAny, V : FromAny] Any::map_delete(Self, K) -> V? raise AnyDecodeError
+pub fn[K : Eq + FromAny, V : FromAny] Any::map_get(Self, K) -> V? raise AnyDecodeError
+pub fn Any::map_length(Self) -> Int raise AnyDecodeError
+pub fn[K : Eq + ToAny + FromAny, V : ToAny + FromAny] Any::map_set(Self, K, V) -> V? raise AnyDecodeError
+pub fn[V : ToAny] Any::struct_update(Self, String, V) -> Unit raise AnyDecodeError
+pub impl Show for Any
+
+// Type aliases
+
+// Traits
+pub(open) trait FromAny {
+  from_any(Any) -> Self raise AnyDecodeError
+}
+pub impl FromAny for Unit
+pub impl FromAny for Bool
+pub impl FromAny for Byte
+pub impl FromAny for Char
+pub impl FromAny for Int
+pub impl FromAny for Int16
+pub impl FromAny for Int64
+pub impl FromAny for UInt
+pub impl FromAny for UInt16
+pub impl FromAny for UInt64
+pub impl FromAny for Float
+pub impl FromAny for Double
+pub impl FromAny for String
+pub impl[T : FromAny] FromAny for T?
+pub impl[T : FromAny, E : FromAny] FromAny for Result[T, E]
+pub impl[T : FromAny] FromAny for FixedArray[T]
+pub impl FromAny for Bytes
+pub impl FromAny for @bigint.BigInt
+pub impl[T : FromAny] FromAny for Array[T]
+pub impl[K : FromAny + Eq + Hash, V : FromAny] FromAny for Map[K, V]
+pub impl[U : FromAny, V : FromAny] FromAny for (U, V)
+pub impl[U : FromAny, V : FromAny, W : FromAny] FromAny for (U, V, W)
+pub impl[U : FromAny, V : FromAny, W : FromAny, X : FromAny] FromAny for (U, V, W, X)
+
+pub(open) trait ToAny {
+  to_any(Self) -> Any
+}
+pub impl ToAny for Unit
+pub impl ToAny for Bool
+pub impl ToAny for Byte
+pub impl ToAny for Char
+pub impl ToAny for Int
+pub impl ToAny for Int16
+pub impl ToAny for Int64
+pub impl ToAny for UInt
+pub impl ToAny for UInt16
+pub impl ToAny for UInt64
+pub impl ToAny for Float
+pub impl ToAny for Double
+pub impl ToAny for String
+pub impl[T : ToAny] ToAny for T?
+pub impl[T : ToAny, E : ToAny] ToAny for Result[T, E]
+pub impl[T : ToAny] ToAny for FixedArray[T]
+pub impl ToAny for Bytes
+pub impl ToAny for @bigint.BigInt
+pub impl[T : ToAny] ToAny for Array[T]
+pub impl[T : ToAny] ToAny for ArrayView[T]
+pub impl[K : ToAny, V : ToAny] ToAny for Map[K, V]
+pub impl[U : ToAny, V : ToAny] ToAny for (U, V)
+pub impl[U : ToAny, V : ToAny, W : ToAny] ToAny for (U, V, W)
+pub impl[U : ToAny, V : ToAny, W : ToAny, X : ToAny] ToAny for (U, V, W, X)
+
