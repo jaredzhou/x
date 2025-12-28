@@ -226,6 +226,37 @@ test "map operations" {
 }
 ```
 
+### Struct Operations
+
+Custom structs can implement `ToAny` and `FromAny` for serialization. Field updates
+can be done directly on `Any::Struct`.
+
+```mbt check
+///|
+test "struct update" {
+  // UserInfo is defined in any_test.mbt with ToAny/FromAny implementations
+  let user = UserInfo::{
+    user_id: "user123",
+    age: 30,
+    is_admin: false,
+    groups: ["users", "editors"]
+  }
+  let info : Any = to_any(user)
+
+  Any::struct_update(info, "age", 31)
+  Any::struct_update(info, "is_admin", true)
+  Any::struct_update(info, "groups", ["users", "editors", "admins"])
+
+  let updated_info : UserInfo = from_any(info)
+
+  assert_eq(updated_info.age, 31)
+  assert_eq(updated_info.is_admin, true)
+  assert_eq(updated_info.groups, ["users", "editors", "admins"])
+}
+```
+
+See `any_test.mbt` for the complete `UserInfo` implementation.
+
 ## Protocol
 
 ### Any Representation
