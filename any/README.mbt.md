@@ -1,6 +1,6 @@
 # `any`
 
-The `any` package provides type-erased value containers and bidirectional conversion
+The `any` package provides unified value container `Any`  and bidirectional conversion
 between MoonBit types and `Any` values.
 
 ## Core Types
