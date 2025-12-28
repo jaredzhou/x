@@ -1,13 +1,15 @@
 {
   "name": "jaredzhou/x",
   "version": "0.1.0",
-  "deps": {
-    "moonbitlang/x": "0.4.38"
-  },
+  "deps": {},
   "readme": "README.md",
   "repository": "https://github.com/jaredzhou/x",
   "license": "Apache-2.0",
-  "keywords": ["any", "type container", "url"],
+  "keywords": [
+    "any",
+    "type container",
+    "url"
+  ],
   "description": "extended packages for web application development",
   "preferred-target": "native"
 }
