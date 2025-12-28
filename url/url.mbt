@@ -519,27 +519,16 @@ pub fn escape(s : StringView, mode : Encoding) -> String {
     }
     [] => break
   }
+  // Short circuit if nothing to escape
   if spaceCount == 0 && hexCount == 0 {
     return s.to_string()
   }
-  let required = s.length() + 2 * hexCount
-  if hexCount == 0 {
-    return s
-      .iter()
-      .map(c => if c == ' ' { '+' } else { c })
-      .collect()
-      .to_string()
-  }
+  let required = s.length() + 2 * hexCount + 2 * spaceCount
   let t = StringBuilder::new(size_hint=required)
   loop s {
     ['%', '2', 'f'|'F' as f,  ..rest]  if mode == EncodePath => {
       t.write_string("%2")
       t.write_char(f)
-      continue rest
-    }
-   
-    [' ', ..rest] if mode == EncodeQueryComponent => {
-      t.write_char('+')
       continue rest
     }
     [c, ..rest] if shouldEscape(c, mode) => {

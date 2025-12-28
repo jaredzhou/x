@@ -11,3 +11,9 @@ test "escape" {
 }
 
 ///|
+test "query escape spaces" {
+  let escaped = escape("hello world", EncodePath)
+  assert_eq(escaped, "hello%20world")
+  let escaped = escape("hello world", EncodeQueryComponent)
+  assert_eq(escaped, "hello%20world")
+}

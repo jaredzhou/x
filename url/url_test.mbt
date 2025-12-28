@@ -54,9 +54,9 @@ test "unescape %20 and +" {
 
 ///|
 test "query escape and unescape" {
-  inspect("", content="")
-  inspect("abc", content="abc")
-  inspect("one two", content="one two")
+  inspect(query_escape(""), content="")
+  inspect(query_escape("abc"), content="abc")
+  inspect(query_escape("one two"), content="one%20two")
 }
 let request_uri_tests : Array[(String, Bool)] = [
   ("http://foo.com", true),
